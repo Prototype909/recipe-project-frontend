@@ -1,13 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recipe Book</title>
     <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <h1>Recipe Project</h1>
     <script src="src/index.js" ></script>
+</head>
+
+<body>
+    <div class="recipe-card-container">
+        <h1 id="main-title">Recipe Book</h1>
+        <div id="buttons">
+          <button class="button" id="add-recipe" type="button" name="button">Add A Recipe</button>
+          <span id="or"> or </span>
+          <button class="button" id="filter-button" type="button" name="button">Recipe By Ingredient</button>
+    </div>
+    
+    <div id="filter-drop-down" class="hidden">
+        <h3>Get a random recipe:</h3>
+        <select id="filter-dropdown">
+          <option value="" disabled selected>Select your ingredient...</option>
+        </select>
+      </div>
+
+      <div class="form">
+        <form id="new-recipe-form" class="hidden">
+          <label for="recipe-title">Title</label><br>
+          <input type="text" name="recipe-title"><br>
+          <label for="image-link">Image Link</label><br>
+          <input type="text" name="image-link"><br>
+          <label for="recipe-link">Recipe Link</label><br>
+          <input type="text" name="recipe-link"><br>
+          <label for="ingredients">Ingredients</label><br>
+          <input type="text" name="ingredients" placeholder="Enter ingredients separated by a comma and a space..."><br>
+          <input id="form-submit" type="submit" value="Add Recipe">
+        </form>
+      </div>
+
+      <div id="recipe-card-container">
+    </div>
+
+
 </body>
 </html>
+

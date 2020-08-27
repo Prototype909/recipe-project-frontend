@@ -1,29 +1,23 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="styles/style.css">
     <title>Recipe Book</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="src/index.js" ></script>
-</head>
-
-<body>
-    <div class="recipe-card-container">
-        <h1 id="main-title">Recipe Book</h1>
-        <div id="buttons">
-          <button class="button" id="add-recipe" type="button" name="button">Add A Recipe</button>
-          <span id="or"> or </span>
-          <button class="button" id="filter-button" type="button" name="button">Recipe By Ingredient</button>
-    </div>
-    
-    <div id="filter-drop-down" class="hidden">
-        <h3>Get a random recipe:</h3>
+  </head>
+  <body>
+    <div class="container">
+      <h1 id="main-title">Recipe Book</h1>
+      <div id="form-show-buttons">
+        <button class="button" id="add-recipe" type="button" name="button">Click Here to Add a Recipe</button>
+        <span id="or"> OR </span>
+        <button class="button" id="filter-button" type="button" name="button">Get a Random Recipe by Ingredient</button>
+      </div>
+      <div id="filter-drop-down" class="hidden">
         <select id="filter-dropdown">
-          <option value="" disabled selected>Select your ingredient...</option>
+
         </select>
       </div>
-
       <div class="form">
         <form id="new-recipe-form" class="hidden">
           <label for="recipe-title">Title</label><br>
@@ -37,11 +31,11 @@
           <input id="form-submit" type="submit" value="Add Recipe">
         </form>
       </div>
-
       <div id="recipe-card-container">
+
+      </div>
     </div>
+    <script type="application/javascript" src="src/index.js" charset="utf-8"></script>
+  </body>
 
-
-</body>
 </html>
-

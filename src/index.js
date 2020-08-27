@@ -1,8 +1,12 @@
 const RECIPES_URL = "http://localhost:3000/recipes"
+const INGREDIENTS_URL = "http://localhost:3000/ingredients"
+
 const formSubmit = document.getElementById("form-submit")
 const formButtons = document.getElementById("form-show-buttons")
 const addRecipeButton = document.getElementById("add-recipe")
 const dropDownButton = document.getElementById("filter-button")
+const ingredientDropDown = document.getElementById("filter-dropdown")
+const cardContainer = document.getElementById('recipe-card-container')
 
 class Recipe {
   constructor(title, imageLink, recipeLink, ingredients) {
@@ -13,7 +17,6 @@ class Recipe {
   }
 
   createRecipeCard() {
-    const cardContainer = document.getElementById('recipe-card-container')
     const card = document.createElement('div')
     card.className = "card"
     const img = document.createElement('img')
@@ -67,7 +70,7 @@ function addRecipesToDom(recipeArray) {
 }
 
 document.addEventListener("DOMContentLoaded", function() {
-  console.log("loaded")
+  console.log("DOMloaded")
   getRecipes();
   formSubmit.addEventListener("click", function() {
     event.preventDefault();
@@ -81,6 +84,9 @@ document.addEventListener("DOMContentLoaded", function() {
     toggleDropDown();
     toggleButtons();
   })
+  ingredientDropDown.addEventListener("change", function() {
+    getRandomRecipeByIngredient();
+  })
 })
 
 function toggleForm() {
@@ -92,12 +98,31 @@ function toggleForm() {
   }
 }
 
+function clearRecipes() {
+  cardContainer.innerHTML = ""
+}
+
 function toggleDropDown() {
   const dropDown = document.getElementById("filter-drop-down")
   if (dropDown.classList.contains("hidden")) {
     dropDown.classList.remove("hidden");
   } else {
     dropDown.className += " hidden"
+  }
+  getIngredients();
+}
+
+function getIngredients() {
+  fetch(INGREDIENTS_URL).then(response => response.json()).then(json => populateIngredientDropDown(json.data))
+}
+
+function populateIngredientDropDown(data) {
+  console.log(data)
+  for (ingredient of data) {
+    let option = document.createElement("option")
+    option.value = ingredient.attributes.name
+    option.innerHTML = ingredient.attributes.name
+    ingredientDropDown.appendChild(option)
   }
 }
 
@@ -111,9 +136,7 @@ function toggleButtons() {
 
 
 function addRecipe() {
-  // console.log(event.target.parentElement)
   const form = event.target.parentElement
-  // console.log(form[3].value.split(' '))
   const ingredients = form[3].value.split(', ')
   const recipe = new Recipe(form[0].value, form[1].value, form[2].value, ingredients)
   const configurationObject = {
@@ -137,6 +160,20 @@ function addRecipe() {
       toggleForm();
     })
     .catch(error => console.log("Error: " + error))
+}
 
-  // console.log(recipe)
+function getRandomRecipeByIngredient() {
+  clearRecipes();
+  const ingredient = event.target.value
+  console.log(ingredient)
+  fetch(RECIPES_URL + `/${ingredient}`).then(response => response.json()).then(json => loadRandomRecipe(json.data.attributes))
+}
+
+function loadRandomRecipe(recipe) {
+  let ingredientArray = [];
+  for (ingredient of recipe.ingredients) {
+    ingredientArray.push(ingredient.name)
+  }
+  const r = new Recipe(recipe.title, recipe.image_link, recipe.recipe_link, ingredientArray)
+  r.createRecipeCard();
 }

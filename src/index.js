@@ -1,4 +1,5 @@
-const RECIPES_URL = "http://localhost:3000/recipes"
+// const RECIPES_URL = "http://localhost:3000/recipes" //this will be commented out
+const recipeApi =  new RecipeApiConnection
 const INGREDIENTS_URL = "http://localhost:3000/ingredients"
 
 const formSubmit = document.getElementById("form-submit")
@@ -47,9 +48,9 @@ class Recipe {
 
 }
 
-function getRecipes() {
-  fetch(RECIPES_URL).then(response => response.json()).then(json => createRecipes(json.data))
-}
+// function getRecipes() {
+//   fetch(RECIPES_URL).then(response => response.json()).then(json => createRecipes(json.data))
+// }
 
 function createRecipes(recipes) {
   const recipeArray = []
@@ -71,7 +72,7 @@ function addRecipesToDom(recipeArray) {
 
 document.addEventListener("DOMContentLoaded", function() {
   console.log("DOMloaded")
-  getRecipes();
+  recipeApi.getRecipes();
   formSubmit.addEventListener("click", function() {
     event.preventDefault();
     addRecipe();

@@ -1,4 +1,4 @@
-// const RECIPES_URL = "http://localhost:3000/recipes" //this will be commented out
+const RECIPES_URL = "http://localhost:3000/recipes" //this will be commented out
 const recipeApi =  new RecipeApiConnection
 const INGREDIENTS_URL = "http://localhost:3000/ingredients"
 

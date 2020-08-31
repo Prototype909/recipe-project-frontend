@@ -1,6 +1,7 @@
 // const RECIPES_URL = "http://localhost:3000/recipes" //this will be commented out
 const recipeApi =  new RecipeApiConnection
-const INGREDIENTS_URL = "http://localhost:3000/ingredients"
+// const INGREDIENTS_URL = "http://localhost:3000/ingredients"
+const ingredientApi = new IngredientApi
 
 const formSubmit = document.getElementById("form-submit")
 const formButtons = document.getElementById("form-show-buttons")
@@ -9,44 +10,44 @@ const dropDownButton = document.getElementById("filter-button")
 const ingredientDropDown = document.getElementById("filter-dropdown")
 const cardContainer = document.getElementById('recipe-card-container')
 
-class Recipe {
-  constructor(title, imageLink, recipeLink, ingredients) {
-    this.title = title;
-    this.imageLink = imageLink;
-    this.recipeLink = recipeLink;
-    this.ingredients = ingredients;
-  }
+// class Recipe {
+//   constructor(title, imageLink, recipeLink, ingredients) {
+//     this.title = title;
+//     this.imageLink = imageLink;
+//     this.recipeLink = recipeLink;
+//     this.ingredients = ingredients;
+//   }
 
-  createRecipeCard() {
-    const card = document.createElement('div')
-    card.className = "card"
-    const img = document.createElement('img')
-    img.src = this.imageLink
-    card.appendChild(img)
-    const cardInfo = document.createElement('div')
-    cardInfo.className = "card-info"
-    const title = document.createElement('h1')
-    title.innerHTML = this.title
-    cardInfo.appendChild(title)
-    const ingHeader = document.createElement('h3')
-    ingHeader.innerHTML = "Ingredients:"
-    cardInfo.appendChild(ingHeader)
-    const ul = document.createElement('ul')
-    for (ingredient of this.ingredients) {
-      let li = document.createElement('li')
-      li.innerHTML = ingredient
-      ul.appendChild(li)
-    }
-    cardInfo.appendChild(ul)
-    const link = document.createElement('a')
-    link.href = this.recipeLink
-    link.innerHTML = "View Recipe Here"
-    cardInfo.appendChild(link)
-    card.appendChild(cardInfo)
-    cardContainer.appendChild(card)
-  }
+//   createRecipeCard() {
+//     const card = document.createElement('div')
+//     card.className = "card"
+//     const img = document.createElement('img')
+//     img.src = this.imageLink
+//     card.appendChild(img)
+//     const cardInfo = document.createElement('div')
+//     cardInfo.className = "card-info"
+//     const title = document.createElement('h1')
+//     title.innerHTML = this.title
+//     cardInfo.appendChild(title)
+//     const ingHeader = document.createElement('h3')
+//     ingHeader.innerHTML = "Ingredients:"
+//     cardInfo.appendChild(ingHeader)
+//     const ul = document.createElement('ul')
+//     for (ingredient of this.ingredients) {
+//       let li = document.createElement('li')
+//       li.innerHTML = ingredient
+//       ul.appendChild(li)
+//     }
+//     cardInfo.appendChild(ul)
+//     const link = document.createElement('a')
+//     link.href = this.recipeLink
+//     link.innerHTML = "View Recipe Here"
+//     cardInfo.appendChild(link)
+//     card.appendChild(cardInfo)
+//     cardContainer.appendChild(card)
+//   }
 
-}
+// }
 
 // function getRecipes() {
 //   fetch(RECIPES_URL).then(response => response.json()).then(json => createRecipes(json.data))
@@ -113,9 +114,9 @@ function toggleDropDown() {
   getIngredients();
 }
 
-function getIngredients() {
-  fetch(INGREDIENTS_URL).then(response => response.json()).then(json => populateIngredientDropDown(json.data))
-}
+// function getIngredients() {
+//   fetch(INGREDIENTS_URL).then(response => response.json()).then(json => populateIngredientDropDown(json.data))
+// }
 
 function populateIngredientDropDown(data) {
   data.sort((a, b) => (a.attributes.name > b.attributes.name) ? 1 : -1)
@@ -140,28 +141,18 @@ function addRecipe() {
   const form = event.target.parentElement
   const ingredients = form[3].value.split(', ')
   const recipe = new Recipe(form[0].value, form[1].value, form[2].value, ingredients)
-  const configurationObject = {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "Accept": "application/json"
-    },
-    body: JSON.stringify({
-      "title": form[0].value,
-      "image_link": form[1].value,
-      "recipe_link": form[2].value,
-      "ingredients": ingredients
-    })
-  };
-  fetch(RECIPES_URL, configurationObject)
-    .then(response => response.json())
-    .then(function(json) {
-      recipe.createRecipeCard();
-      toggleButtons();
-      toggleForm();
-    })
-    .catch(error => console.log("Error: " + error))
-}
+  const postBody = JSON.stringify({
+    "title": form[0].value,
+    "image_link": form[1].value,
+    "recipe_link": form[2].value,
+    "ingredients": ingredients
+  })
+  recipeApi.addRecipe(postBody)
+
+  recipe.createRecipeCard();
+    toggleButtons();
+    toggleForm();
+  }
 
 function getRandomRecipeByIngredient() {
   clearRecipes();

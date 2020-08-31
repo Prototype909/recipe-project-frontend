@@ -1,4 +1,4 @@
-const RECIPES_URL = "http://localhost:3000/recipes" //this will be commented out
+// const RECIPES_URL = "http://localhost:3000/recipes" //this will be commented out
 const recipeApi =  new RecipeApiConnection
 const INGREDIENTS_URL = "http://localhost:3000/ingredients"
 
@@ -167,7 +167,8 @@ function getRandomRecipeByIngredient() {
   clearRecipes();
   const ingredient = event.target.value
   console.log(ingredient)
-  fetch(RECIPES_URL + `/${ingredient}`).then(response => response.json()).then(json => loadRandomRecipe(json.data.attributes))
+  recipeApi.getRandomRecipeByIngredient(ingredient)
+  // fetch(recipeApi.baseUrl + `/${ingredient}`).then(response => response.json()).then(json => loadRandomRecipe(json.data.attributes))
 }
 
 function loadRandomRecipe(recipe) {

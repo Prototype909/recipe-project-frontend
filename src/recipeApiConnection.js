@@ -8,5 +8,10 @@ class RecipeApiConnection {
         .then(response => response.json())
         .then(json => createRecipes(json.data))
     }
+
+       getRandomRecipeByIngredient(ingredient) {
+        fetch(this.baseUrl + `/${ingredient}`).then(response => response.json()).then(json => loadRandomRecipe(json.data.attributes))
+  }
 }
 
+ 

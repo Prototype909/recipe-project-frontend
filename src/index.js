@@ -118,7 +118,7 @@ function getIngredients() {
 }
 
 function populateIngredientDropDown(data) {
-  console.log(data)
+  data.sort((a, b) => (a.attributes.name > b.attributes.name) ? 1 : -1)
   for (ingredient of data) {
     let option = document.createElement("option")
     option.value = ingredient.attributes.name

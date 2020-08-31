@@ -9,3 +9,4 @@ class RecipeApiConnection {
         .then(json => createRecipes(json.data))
     }
 }
+

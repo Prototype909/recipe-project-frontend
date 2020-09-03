@@ -4,6 +4,6 @@ class IngredientApi {
     }
   
     getIngredients() {
-      return fetch(this.baseURL).then(response => response.json()).then(json => (json.data))
+      return fetch(this.baseURL).then(response => response.json()).then(json => populateIngredientDropDown(json.data))
     }
   }

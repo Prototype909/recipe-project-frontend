@@ -58,7 +58,7 @@ function createRecipes(recipes) {
   for (recipe of recipes) {
     let ingredientArray = [];
     for (ingredient of recipe.attributes.ingredients) {
-      ingredientArray.push(ingredient.name)
+      ingredientArray.push(ingredient.name) // should be ingredient objects ex. .push(new ingredient)
     }
     recipeArray.push(new Recipe(recipe.attributes.title, recipe.attributes.image_link, recipe.attributes.recipe_link, ingredientArray))
   }
@@ -111,7 +111,8 @@ function toggleDropDown() {
   } else {
     dropDown.className += " hidden"
   }
-  getIngredients();
+  
+  ingredientApi.getIngredients();
 }
 
 // function getIngredients() {
@@ -119,7 +120,7 @@ function toggleDropDown() {
 // }
 
 function populateIngredientDropDown(data) {
-  data.sort((a, b) => (a.attributes.name > b.attributes.name) ? 1 : -1)
+  data.sort((a, b) => (a.attributes.name.toUpperCase() > b.attributes.name.toUpperCase()) ? 1 : -1)
   for (ingredient of data) {
     let option = document.createElement("option")
     option.value = ingredient.attributes.name

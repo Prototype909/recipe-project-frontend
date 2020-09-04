@@ -1,11 +1,14 @@
 class Recipe {
+
     constructor(title, imageLink, recipeLink, ingredients) {
       this.title = title;
       this.imageLink = imageLink;
       this.recipeLink = recipeLink;
       this.ingredients = ingredients;
+      
     }
 
+    // creates recipe card and appends to the
     createRecipeCard() {
         const card = document.createElement('div')
         card.className = "card"

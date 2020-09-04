@@ -3,16 +3,19 @@ class RecipeApiConnection {
         this.baseUrl = "http://localhost:3000/recipes"
     }
 
+    //get recipes and changes to json then to object.
     getRecipes() {
         fetch(this.baseUrl)
         .then(response => response.json())
         .then(json => createRecipes(json.data))
     }
 
+    //get 
     getRandomRecipeByIngredient(ingredient) {
         fetch(this.baseUrl + `/${ingredient}`).then(response => response.json()).then(json => loadRandomRecipe(json.data.attributes))
     }
 
+    //create
     addRecipe(postBody) {
         const configurationObject = {
             method: "POST",

@@ -53,6 +53,7 @@ const cardContainer = document.getElementById('recipe-card-container')
 //   fetch(RECIPES_URL).then(response => response.json()).then(json => createRecipes(json.data))
 // }
 
+// initial showing of recipes
 function createRecipes(recipes) {
   const recipeArray = []
   for (recipe of recipes) {
@@ -71,6 +72,7 @@ function addRecipesToDom(recipeArray) {
   }
 }
 
+// this is wher it starts, setting up my form with an event listener.
 document.addEventListener("DOMContentLoaded", function() {
   console.log("DOMloaded")
   recipeApi.getRecipes();

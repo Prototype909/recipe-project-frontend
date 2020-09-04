@@ -3,6 +3,7 @@ const recipeApi =  new RecipeApiConnection
 // const INGREDIENTS_URL = "http://localhost:3000/ingredients"
 const ingredientApi = new IngredientApi
 
+const searchForm = document.getElementById("search-form")
 const formSubmit = document.getElementById("form-submit")
 const formButtons = document.getElementById("form-show-buttons")
 const addRecipeButton = document.getElementById("add-recipe")
@@ -91,7 +92,18 @@ document.addEventListener("DOMContentLoaded", function() {
   ingredientDropDown.addEventListener("change", function() {
     getRandomRecipeByIngredient();
   })
+  searchForm.addEventListener("submit", handleSearch)
 })
+
+function handleSearch(e) {
+  e.preventDefault()
+  cardContainer.innerHTML = ''
+  let searchInput = e.target.querySelector('#search-input').value.toLowerCase()
+  let recipes = Recipe.all.filter(recipes => {
+    return recipes.title.toLowerCase().includes(searchInput)
+  })
+  addRecipesToDom(recipes)
+}
 
 function toggleForm() {
   const form = formSubmit.parentElement;

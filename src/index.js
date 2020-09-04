@@ -122,6 +122,9 @@ function toggleDropDown() {
 // }
 
 function populateIngredientDropDown(data) {
+  debugger
+  // data.sort((a,b) => (a.attributes.name.toUppercase() > b.attributes.name.toUppercase()) ? 1 : -1)
+  data.sort((a,b) => (a.attributes.name.toUpperCase() > b.attributes.name.toUpperCase()) ? 1 : -1)
   for (ingredient of data) {
     let option = document.createElement("option")
     option.value = ingredient.attributes.name
